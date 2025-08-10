@@ -16,7 +16,15 @@ class EventResource extends JsonResource
             'starts_at'=>$this->starts_at,
             'ends_at'=>$this->ends_at,
             'status'=>$this->status,
-            'venue_id'=>$this->venue_id,
+            'venue'=>$this->whenLoaded('venue', fn()=>[
+                'id'=>$this->venue->id,
+                'name'=>$this->venue->name,
+                'city'=>$this->venue->city,
+            ]),
+            'sessions'=>EventSessionResource::collection($this->whenLoaded('sessions')),
+            'ticket_types'=>\App\Modules\Ticketing\Http\Resources\TicketTypeResource::collection(
+                $this->whenLoaded('ticketTypes')
+            ),
         ];
     }
 }
