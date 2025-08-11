@@ -16,6 +16,7 @@ class RolesSeeder extends Seeder
             'tickets.manage',
             'registrations.create','registrations.manage',
             'payments.manage',
+            'checkin.manage',
         ];
         foreach ($perms as $p) { Permission::firstOrCreate(['name'=>$p, 'guard_name'=>'web']); }
 
@@ -27,7 +28,7 @@ class RolesSeeder extends Seeder
         $organizer->syncPermissions([
             'events.view','events.create','events.update','events.publish',
             'venues.manage','tickets.manage','registrations.create','registrations.manage',
-            'payments.manage',
+            'payments.manage','checkin.manage',
         ]);
         $viewer->syncPermissions(['events.view']);
     }
